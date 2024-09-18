@@ -9,10 +9,10 @@ import {CustomButton} from "../../components/CustomButton";
 import {CustomAnchor} from "../../components/CustomAnchor";
 import {CustomImage} from "../../components/CustomImage";
 import logo from "../../images/logo.svg"
-import shop from "../../images/Shop.png"
-import itemCard1 from "../../images/Item-card-1.png"
-import itemCard2 from "../../images/Item-card-2.png"
-import avatarsGroup from "../../images/avatars-group.png"
+import shop from "../../images/Shop.svg"
+import itemCard1 from "../../images/item-1.svg"
+import itemCard2 from "../../images/item-2.svg"
+import avatarsGroup from "../../images/Avatar-group-stacked.svg"
 
 export const SignUp = () => {
     return (
@@ -44,7 +44,7 @@ export const SignUp = () => {
 
 
                 <div className={s.Info}>
-                    <div style={{display: 'flex', alignItems: 'center', gap: '5px'}}>
+                    <div style={{display: 'flex', alignItems: 'center', gap: '5px', marginBottom: '100px'}}>
                         <CustomImage src={logo} className={s.logo}/>
                         <CustomTitle order={2}>Shopy</CustomTitle>
                     </div>
@@ -59,8 +59,10 @@ export const SignUp = () => {
                     <CustomText style={{marginBottom: '30px'}}>Save your time, we take care of all the
                         processing.</CustomText>
 
-                    <CustomImage src={avatarsGroup} className={s.groupImage}/>
-                    <CustomText><b>+100</b> users from all over the world</CustomText>
+                    <div style={{display: 'flex', alignItems: 'center'}}>
+                        <CustomImage src={avatarsGroup} className={s.groupImage}/>
+                        <CustomText><b>+100</b> users from all over the world</CustomText>
+                    </div>
                 </div>
             </div>
     );

@@ -4,8 +4,7 @@
 }
 
 .login {
-    max-width: 400px;
-    border: 1px solid red;
+    width: 400px;
 }
 
 .signIn {
@@ -16,10 +15,10 @@
 }
 
 .Info {
-    margin: 20px;
-    border: 1px solid red;
-    padding: 30px 10px;
+    margin: 20px 70px;
+    padding: 40px 20px;
     background-color: #F4F4F4;
+    border-radius: 12px;
     flex: 1;
 }
 
@@ -29,29 +28,37 @@
 }
 
 .mainImage {
-    width: 450px;
-    height: 300px;
-    margin: 0 auto;
+    max-width: 450px;
+    height: 280px;
     z-index: 100;
     position: relative;
 }
 
+.mainImageContainer {
+    position: relative;
+    overflow: visible;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 70px;
+}
+
 .leftImage {
-    width: 100px;
+    width: 110px;
     height: 130px;
     z-index: 1;
     position: absolute;
-    bottom: -50px;
-    left: 20px;
+    left: 70px;
+    bottom: -40px;
 }
 
 .rightImage {
-    width: 100px;
+    width: 110px;
     height: 130px;
     z-index: 1;
     position: absolute;
-    right: 20px;
-    bottom: -50px;
+    right: 70px;
+    bottom: -40px;
 }
 
 .groupImage {
@@ -59,10 +66,6 @@
     height: 40px;
 }
 
-.mainImageContainer {
-    position: relative;
-    margin: 150px 0 70px;
-}
 .formWrapper {
     flex: 1;
     display: flex;

@@ -12,6 +12,7 @@ export const CustomCheckbox: React.FC<CustomCheckboxProps> = ({children}) => {
     return (
         <div className={s.CheckboxAndText}>
             <Checkbox
+                radius="xl"
                 checked={checked}
                 onChange={(event) => setChecked(event.currentTarget.checked)}/>
             <CustomText c="dimmed">{children}</CustomText>
