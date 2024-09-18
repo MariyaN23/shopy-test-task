@@ -1,0 +1,71 @@
+.signUp {
+    display: flex;
+    height: 100vh;
+}
+
+.login {
+    max-width: 400px;
+    border: 1px solid red;
+}
+
+.signIn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.Info {
+    margin: 20px;
+    border: 1px solid red;
+    padding: 30px 10px;
+    background-color: #F4F4F4;
+    flex: 1;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+}
+
+.mainImage {
+    width: 450px;
+    height: 300px;
+    margin: 0 auto;
+    z-index: 100;
+    position: relative;
+}
+
+.leftImage {
+    width: 100px;
+    height: 130px;
+    z-index: 1;
+    position: absolute;
+    bottom: -50px;
+    left: 20px;
+}
+
+.rightImage {
+    width: 100px;
+    height: 130px;
+    z-index: 1;
+    position: absolute;
+    right: 20px;
+    bottom: -50px;
+}
+
+.groupImage {
+    width: 150px;
+    height: 40px;
+}
+
+.mainImageContainer {
+    position: relative;
+    margin: 150px 0 70px;
+}
+.formWrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
