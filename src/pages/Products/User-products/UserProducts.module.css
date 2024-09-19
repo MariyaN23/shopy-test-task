@@ -1,0 +1,10 @@
+.addNewProduct {
+    border: 1px solid #ECECEE;
+    width: 270px;
+    height: 270px;
+}
+
+.addNewProduct img {
+    width: 40px;
+    height: 40px;
+}

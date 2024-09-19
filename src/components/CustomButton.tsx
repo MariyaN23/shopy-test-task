@@ -3,6 +3,7 @@ import React from 'react';
 
 interface CustomButtonProps extends ButtonProps {
     children: React.ReactNode
+    onClick?: () => void
 }
 
 export const CustomButton: React.FC<CustomButtonProps> = ({ children, ...props }) => {
