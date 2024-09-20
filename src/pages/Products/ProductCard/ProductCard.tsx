@@ -10,6 +10,7 @@ export type Product = {
     price: string
     image: string
     date?: string
+    status?: 'On sale' | 'Sold'
 }
 
 type ProductCardType = {

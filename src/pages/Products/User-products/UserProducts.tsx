@@ -13,14 +13,19 @@ export const UserProducts = () => {
     return (
         <div>
             <Header/>
-            <CustomTitle order={3}>Your Products</CustomTitle>
-            <NavLink to={path.newProduct}>
-                <div className={s.addNewProduct}>
-                    <CustomImage src={add}/>
-                    <CustomButton variant="transparent" size="xl">New Product</CustomButton>
+            <div style={{margin: '20px'}}>
+                <CustomTitle order={3}>Your Products</CustomTitle>
+                <div style={{display: 'flex'}}>
+                    <div className={s.addNewProduct}>
+                        <NavLink to={path.newProduct}>
+                            <CustomImage src={add}/>
+                            <CustomButton variant="transparent" size="xl">New Product</CustomButton>
+                        </NavLink>
+                    </div>
+
+                    <AllUsersProducts/>
                 </div>
-            </NavLink>
-            <AllUsersProducts/>
+            </div>
         </div>
     );
 };

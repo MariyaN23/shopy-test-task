@@ -12,7 +12,7 @@ import {PaymentSuccess} from "./pages/Products/Payment/PaymentSuccess";
 import {PaymentFailed} from "./pages/Products/Payment/PaymentFailed";
 import {Error} from "./pages/Error/Error";
 import {UserProducts} from "./pages/Products/User-products/UserProducts";
-import {NewProduct} from "./pages/Products/User-products/NewProduct";
+import {NewProduct} from "./pages/Products/User-products/NewProduct/NewProduct";
 
 export const path = {
     signIn: '/signin',
