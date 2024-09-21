@@ -1,5 +1,5 @@
 .ProductCard {
-    max-width: 340px;
+    max-width: 290px;
     max-height: 380px;
     border: 1px solid #ECECEE;
     border-radius: 12px;
@@ -28,7 +28,8 @@
 
 .allProducts {
     display: flex;
-    max-width: 1100px;
+    justify-content: space-between;
+    max-width: 1000px;
     flex-wrap: wrap;
     gap: 30px;
 }

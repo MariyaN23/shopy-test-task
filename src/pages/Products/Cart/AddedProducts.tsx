@@ -1,20 +1,13 @@
 import React from 'react';
 import {NoProducts} from "../NoProduct/NoProducts";
 import {ProductsTable} from "./ProductsTable";
-import {Product} from "../ProductCard/ProductCard";
-import img5 from "../../../images/products/product5.svg";
-import img2 from "../../../images/products/product2.svg";
-import img4 from "../../../images/products/product4.svg";
 import {CustomTitle} from "../../../components/CustomTitle";
 import {CustomText} from "../../../components/CustomText";
 import {CustomButton} from "../../../components/CustomButton";
 import s from './Cart.module.css'
+import {ProductType} from "../../../redux/products/productsReduces";
 
-const addedProducts: Product[] = [
-    {id: 5, name: 'DJI Pocket 2 Creator Combo', price: '499', image: img5},
-    {id: 2, name: 'DJI Osmo Action 4', price: '499', image: img2},
-    {id: 4, name: 'DJI Mini 3 Pro', price: '909', image: img4},
-]
+const addedProducts: ProductType[] = []
 
 export const AddedProducts = () => {
     return (

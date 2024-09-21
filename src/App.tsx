@@ -13,6 +13,8 @@ import {PaymentFailed} from "./pages/Products/Payment/PaymentFailed";
 import {Error} from "./pages/Error/Error";
 import {UserProducts} from "./pages/Products/User-products/UserProducts";
 import {NewProduct} from "./pages/Products/User-products/NewProduct/NewProduct";
+import {Provider} from "react-redux";
+import {store} from "./redux/store";
 
 export const path = {
     signIn: '/signin',
@@ -29,19 +31,21 @@ export const path = {
 function App() {
     return (
         <MantineProvider theme={theme}>
-            <Routes>
-                <Route path={'/'} element={<Navigate to={path.signUp}/>}/>
-                <Route path={path.signUp} element={<SignUpPage/>}/>
-                <Route path={path.signIn} element={<SingInPage/>}/>
-                <Route path={path.allProducts} element={<Products/>}/>
-                <Route path={path.myCart} element={<Cart/>}/>
-                <Route path={path.history} element={<History/>}/>
-                <Route path={path.paymentSuccess} element={<PaymentSuccess/>}/>
-                <Route path={path.paymentFailed} element={<PaymentFailed/>}/>
-                <Route path={path.userProducts} element={<UserProducts/>}/>
-                <Route path={path.newProduct} element={<NewProduct/>}/>
-                <Route path={'/*'} element={<Error/>}/>
-            </Routes>
+            <Provider store={store}>
+                <Routes>
+                    <Route path={'/'} element={<Navigate to={path.signUp}/>}/>
+                    <Route path={path.signUp} element={<SignUpPage/>}/>
+                    <Route path={path.signIn} element={<SingInPage/>}/>
+                    <Route path={path.allProducts} element={<Products/>}/>
+                    <Route path={path.myCart} element={<Cart/>}/>
+                    <Route path={path.history} element={<History/>}/>
+                    <Route path={path.paymentSuccess} element={<PaymentSuccess/>}/>
+                    <Route path={path.paymentFailed} element={<PaymentFailed/>}/>
+                    <Route path={path.userProducts} element={<UserProducts/>}/>
+                    <Route path={path.newProduct} element={<NewProduct/>}/>
+                    <Route path={'/*'} element={<Error/>}/>
+                </Routes>
+            </Provider>
         </MantineProvider>
     );
 }

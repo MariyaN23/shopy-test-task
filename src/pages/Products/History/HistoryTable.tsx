@@ -1,12 +1,12 @@
 import React from 'react';
-import {Product} from "../ProductCard/ProductCard";
 import {Table} from "@mantine/core";
 import s from "../Cart/Cart.module.css";
 import {CustomImage} from "../../../components/CustomImage";
 import {CustomText} from "../../../components/CustomText";
+import {ProductType} from "../../../redux/products/productsReduces";
 
 type HistoryTableType = {
-    products: Product[]
+    products: ProductType[]
 }
 
 export const HistoryTable = (props: HistoryTableType) => {

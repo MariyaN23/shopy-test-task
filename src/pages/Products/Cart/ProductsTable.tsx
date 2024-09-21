@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {Table} from "@mantine/core";
-import {Product} from "../ProductCard/ProductCard";
 import {CustomImage} from "../../../components/CustomImage";
 import s from './Cart.module.css'
 import {CustomText} from "../../../components/CustomText";
@@ -8,9 +7,10 @@ import {CustomButton} from "../../../components/CustomButton";
 import minus from '../../../images/minus.svg'
 import plus from '../../../images/Plus.svg'
 import remove from '../../../images/close.svg'
+import {ProductType} from "../../../redux/products/productsReduces";
 
 type ProductsTableType = {
-    addedProducts: Product[]
+    addedProducts: ProductType[]
 }
 
 export const ProductsTable = (props: ProductsTableType) => {

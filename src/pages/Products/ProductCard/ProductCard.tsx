@@ -3,18 +3,10 @@ import {CustomImage} from "../../../components/CustomImage";
 import s from './ProductCard.module.css'
 import {CustomText} from "../../../components/CustomText";
 import {CustomButton} from "../../../components/CustomButton";
-
-export type Product = {
-    id: number
-    name: string
-    price: string
-    image: string
-    date?: string
-    status?: 'On sale' | 'Sold'
-}
+import {ProductType} from "../../../redux/products/productsReduces";
 
 type ProductCardType = {
-    product: Product
+    product: ProductType
 }
 
 export const ProductCard = (props: ProductCardType) => {
@@ -25,7 +17,7 @@ export const ProductCard = (props: ProductCardType) => {
                 <CustomText children={props.product.name} fw={600}/>
                 <div className={s.price}>
                     <CustomText children={'Price:'} fw={300}/>
-                    <CustomText children={props.product.price} fw={600}/>
+                    <CustomText children={`$${props.product.price}`} fw={600}/>
                 </div>
                 <div className={s.addButton}>
                     <CustomButton fullWidth>Add to Cart</CustomButton>

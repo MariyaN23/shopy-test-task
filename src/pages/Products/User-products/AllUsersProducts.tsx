@@ -1,12 +1,10 @@
 import React from 'react';
 import {Item} from "./Item/Item";
-import {Product} from "../ProductCard/ProductCard";
-import img3 from "../../../images/products/product3.svg";
-import img6 from "../../../images/products/product6.svg";
+import {ProductType} from "../../../redux/products/productsReduces";
 
-const userProducts: Product[] = [
-    {id: 3, name: 'DJI Mini 3 Pro (DJI RC)', price: '1158', image: img3, status: 'On sale'},
-    {id: 6, name: 'DJI RS 3', price: '549', image: img6, status: 'Sold'},
+const userProducts: ProductType[] = [
+    {id: 3, name: 'DJI Mini 3 Pro (DJI RC)', price: 1158, image: '', status: 'On sale', date: '20.09.2024'},
+    {id: 6, name: 'DJI RS 3', price: 549, image: '', status: 'Sold', date: '20.09.2024'},
 ]
 
 export const AllUsersProducts = () => {

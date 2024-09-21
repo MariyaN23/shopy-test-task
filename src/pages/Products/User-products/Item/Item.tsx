@@ -1,14 +1,14 @@
 import React from 'react';
-import {Product} from "../../ProductCard/ProductCard";
 import {CustomImage} from "../../../../components/CustomImage";
 import {CustomText} from "../../../../components/CustomText";
 import {CustomButton} from "../../../../components/CustomButton";
 import trash from '../../../../images/TrashCan.svg'
 import s from './Item.module.css'
 import {CustomTitle} from "../../../../components/CustomTitle";
+import {ProductType} from "../../../../redux/products/productsReduces";
 
 type ItemPropsType = {
-    product: Product
+    product: ProductType
 }
 
 export const Item = (props: ItemPropsType) => {
