@@ -9,5 +9,8 @@ export const instance = axios.create({
 export const api = {
     getProducts() {
         return instance.get<ProductType[]>('products')
+    },
+    addProduct(product: ProductType) {
+        return instance.post<ProductType>('products', product)
     }
 }

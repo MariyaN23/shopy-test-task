@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {getProducts} from "./productsActions";
+import {addProduct, getProducts} from "./productsActions";
 
 export type ProductType = {
     id: number
@@ -20,6 +20,9 @@ export const slice = createSlice({
         builder.addCase(getProducts.fulfilled, (state, action) => {
             return action.payload
         })
+            .addCase(addProduct.fulfilled, (state, action) => {
+                state.unshift(action.payload)
+            })
     }
 })
 
