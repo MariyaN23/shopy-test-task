@@ -1,9 +1,10 @@
 .ProductCard {
-    max-width: 290px;
+    width: 290px;
     max-height: 380px;
     border: 1px solid #ECECEE;
     border-radius: 12px;
     margin-top: 20px;
+    margin-right: 20px;
 }
 
 .ProductCard img {
@@ -28,7 +29,7 @@
 
 .allProducts {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     max-width: 1000px;
     flex-wrap: wrap;
     gap: 30px;

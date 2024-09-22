@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React, {useRef} from 'react';
 import s from './NewProduct.module.css'
 import {Header} from "../../../Header/Header";
 import {CustomTitle} from "../../../../components/CustomTitle";
@@ -9,16 +9,20 @@ import {CustomText} from "../../../../components/CustomText";
 import {CustomInput} from "../../../../components/CustomInput";
 import {app} from "../../../../firebase";
 import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
+import {FileInput} from "@mantine/core";
+import {useActions} from "../../../../redux/products/useActions";
+import {productsActions} from "../../../../redux/products";
 
 export const NewProduct = () => {
+    const {addProduct} = useActions(productsActions)
+
+    const imgRef = useRef<HTMLButtonElement>(null)
     const [imgUrl, setImgUrl] = React.useState('')
-    const [uploading, setUploading] = React.useState(false)
-    const onPhotoSelected = async (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.currentTarget.files?.length) {
-            const image = e.currentTarget.files[0]
+    const onPhotoSelected = async (payload: File | null) => {
+        if (payload) {
+            const image = payload
             if (image) {
                 try {
-                    setUploading(true)
                     const storage = getStorage(app)
                     const storageRef = ref(storage, "products/" + image.name)
                     await uploadBytes(storageRef, image)
@@ -27,21 +31,37 @@ export const NewProduct = () => {
                     setImgUrl(downloadUrl)
                 } catch (e) {
                     console.log(e)
-                } finally {
-                    setUploading(false)
                 }
             }
         }
     }
     const [name, setName] = React.useState<string>('')
-    const [price, setPrice] = React.useState<number>(0)
-    const uploadProduct = ()=> {
-        const newProduct = {
-            name,
-            price,
-            imageUrl: imgUrl
+    const [price, setPrice] = React.useState<string>('')
+    const priceOfProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.currentTarget.value
+        if ((+value > 0 && +value <= 10000) || value === '') {
+            setPrice(value)
         }
-        console.log(newProduct)
+    }
+    const nameOfProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setName(e.currentTarget.value)
+    }
+
+    const uploadProduct = () => {
+        if (price && name && imgUrl && name.length <= 30) {
+            const newProduct = {
+                name,
+                price: +price,
+                image: imgUrl
+            }
+            addProduct(newProduct)
+            setPrice('')
+            setName('')
+            setImgUrl('')
+            if (imgRef.current) {
+                imgRef.current.textContent = 'Upload Photo'
+            }
+        }
     }
     return (
         <div>
@@ -49,20 +69,21 @@ export const NewProduct = () => {
             <div className={s.container}>
                 <CustomTitle order={3}>Create new product</CustomTitle>
                 <div className={s.imageContainer}>
-                    <CustomImage src={load}/>
-                    {imgUrl && <img src={imgUrl} alt="Uploaded" />}
-                    <CustomButton variant="outline" color="gray">Upload Photo</CustomButton>
-                    {uploading ? "Uploading..." : "Upload Image"}
-                    <input type={'file'} accept=".jpg, .png" onChange={onPhotoSelected}/>
+                    {imgUrl ? <CustomImage src={imgUrl}/> : <CustomImage src={load}/>}
+                    <FileInput accept="image/png,image/jpeg"
+                               placeholder="Upload Photo"
+                               onChange={onPhotoSelected}
+                               className={s.uploadPhotoInput}
+                               ref={imgRef}/>
                 </div>
                 <div className={s.inputsContainer}>
                     <CustomText fw={700}>Title of the product</CustomText>
-                    <CustomInput placeholder={'Enter title of the product...'} onChange={(event) =>
-                        setName(event.currentTarget.value)} value={name}/>
-
+                    <CustomInput placeholder={'Enter title of the product...'} onChange={nameOfProduct} maxLength={30}
+                                 value={name}/>
                     <CustomText fw={700}>Price</CustomText>
-                    <CustomInput placeholder={'Enter price of the product'} onChange={(event) =>
-                        setPrice(+event.currentTarget.value)} value={String(price)}/>
+                    <CustomInput placeholder={'Enter price of the product'}
+                                 type={'number'}
+                                 onChange={priceOfProduct} value={price}/>
                     <div className={s.uploadButton}>
                         <CustomButton onClick={uploadProduct}>Upload Product</CustomButton>
                     </div>

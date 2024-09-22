@@ -2,12 +2,12 @@ import {createSlice} from "@reduxjs/toolkit";
 import {addProduct, getProducts} from "./productsActions";
 
 export type ProductType = {
-    id: number
+    id?: number
     name: string
     price: number
     image?: string
-    date: string
-    status: 'On sale' | 'Sold'
+    date?: string
+    status?: 'On sale' | 'Sold'
 }
 
 const initialState: ProductType[] = []
