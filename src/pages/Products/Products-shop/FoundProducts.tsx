@@ -4,7 +4,7 @@ import {ProductType} from "../../../redux/products/productsReduces";
 import {ProductCard} from "../ProductCard/ProductCard";
 import {useSelector} from "react-redux";
 import {selectProducts} from "../../../redux/products/productsSelector";
-import {useActions} from "../../../redux/products/useActions";
+import {useActions} from "../../../redux/useActions";
 import {productsActions} from "../../../redux/products";
 
 

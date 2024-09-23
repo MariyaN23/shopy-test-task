@@ -17,8 +17,8 @@ import {Provider} from "react-redux";
 import {store} from "./redux/store";
 
 export const path = {
-    signIn: '/signin',
-    signUp: '/signup',
+    signIn: '/auth/login',
+    signUp: '/auth/registration',
     allProducts: '/products',
     myCart: '/cart',
     history: '/cart/history',

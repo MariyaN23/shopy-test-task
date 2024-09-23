@@ -10,7 +10,7 @@ import {CustomInput} from "../../../../components/CustomInput";
 import {app} from "../../../../firebase";
 import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
 import {FileInput} from "@mantine/core";
-import {useActions} from "../../../../redux/products/useActions";
+import {useActions} from "../../../../redux/useActions";
 import {productsActions} from "../../../../redux/products";
 
 export const NewProduct = () => {

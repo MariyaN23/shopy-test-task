@@ -4,8 +4,9 @@ import {NavLink} from "react-router-dom";
 import {path} from "../../../App";
 import {CustomButton} from "../../../components/CustomButton";
 import {ProductsInHistory} from "./ProductsInHistory";
+import {withAuthRedirectComponent} from "../../../hoc/withAuthRedirect";
 
-export const History = () => {
+export const History = withAuthRedirectComponent(() => {
     return (
         <div style={{display: 'grid', gridTemplateRows: 'auto 1fr'}}>
             <Header/>
@@ -20,4 +21,4 @@ export const History = () => {
             <ProductsInHistory/>
         </div>
     );
-};
+})
