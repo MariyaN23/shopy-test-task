@@ -7,8 +7,8 @@ export type newProductType = {
     image: string
 }
 
-export const getProducts = createAsyncThunk('products/getProducts', async () => {
-    const res = await api.getProducts()
+export const getProducts = createAsyncThunk('products/getProducts',async (arg: {min: string, max: string, name: string}, thunkAPI) => {
+    const res = await api.getProducts(arg.min, arg.max, arg.name)
     return res.data
 })
 

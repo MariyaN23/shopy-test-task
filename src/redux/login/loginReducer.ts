@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {loginFormSending} from "./loginActions";
+import {loginFormSending, logout, registrationFormSending} from "./loginActions";
 
 const initialState = {
     isAuthorised: true
@@ -17,6 +17,12 @@ export const slice = createSlice({
         builder.addCase(loginFormSending.fulfilled, (state) => {
             state.isAuthorised = true
         })
+            .addCase(registrationFormSending.fulfilled, (state) => {
+                state.isAuthorised = true
+            })
+            .addCase(logout.fulfilled, (state) => {
+                state.isAuthorised = false
+            })
     }
 })
 

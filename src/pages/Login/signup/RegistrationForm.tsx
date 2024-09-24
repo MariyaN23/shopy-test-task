@@ -2,8 +2,11 @@ import React from 'react';
 import { useForm } from '@mantine/form';
 import {Button, PasswordInput, TextInput} from '@mantine/core';
 import { PasswordStrength } from './PasswordStrength';
+import {useActions} from "../../../redux/useActions";
+import {loginActions} from "../../../redux/login";
 
 export const RegistrationForm = () => {
+    const {loginFormSending} = useActions(loginActions)
     const form = useForm({
         mode: 'controlled',
         initialValues: {

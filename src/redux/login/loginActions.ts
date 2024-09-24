@@ -8,8 +8,15 @@ export type newLoginType = {
 
 export const loginFormSending = createAsyncThunk('login/loginFormSending',
     async (data: newLoginType) => {
-        const response = await api.login(data.email, data.password)
-        if (response.status === 200) {
-            //window.location.href = path.userProducts
-        }
+        await api.login(data.email, data.password)
+    })
+
+export const registrationFormSending = createAsyncThunk('login/registrationFormSending',
+    async (data: newLoginType) => {
+        await api.registration(data.email, data.password)
+    })
+
+export const logout = createAsyncThunk('login/logout',
+    async (arg, {dispatch, rejectWithValue}) => {
+        await api.logout()
     })
