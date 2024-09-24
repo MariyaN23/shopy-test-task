@@ -20,7 +20,6 @@ export const LoginForm = () => {
 
     return (
         <form onSubmit={form.onSubmit((values: newLoginType) => {
-            console.log(values)
             loginFormSending(values)
         })}>
             <TextInput

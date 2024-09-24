@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {Header} from "../../Header/Header";
-import {Filters} from "./Filters";
 import {CustomInput} from "../../../components/CustomInput";
 import {IconSearch} from "@tabler/icons-react";
 import s from './Products.module.css'
@@ -12,17 +11,68 @@ import arrowDown from '../../../images/arrow-down.svg'
 import close from '../../../images/close-in-circle.svg'
 import {FoundProducts} from "./FoundProducts";
 import {CustomPagination} from "../ProductCard/CustomPagination";
+import {useSelector} from "react-redux";
+import {selectProducts, selectTotal} from "../../../redux/products/productsSelector";
+import {useActions} from "../../../redux/useActions";
+import {productsActions} from "../../../redux/products";
+import {CustomTitle} from "../../../components/CustomTitle";
+import resetAll from "../../../images/close.svg";
+import {Pagination} from "@mantine/core";
 
 export const Products = () => {
+    const allProducts = useSelector(selectProducts)
+    const total = useSelector(selectTotal)
+    const {getProducts} = useActions(productsActions)
+    const [minPrice, setMinPrice] = useState('')
+    const [maxPrice, setMaxPrice] = useState('')
+    const [productName, setProductName] = useState('')
+    const [activePage, setPage] = useState(1);
+    const minPriceHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setMinPrice(e.currentTarget.value)
+    }
+    const maxPriceHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setMaxPrice(e.currentTarget.value)
+    }
+    const productNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setProductName(e.currentTarget.value)
+    }
+    useEffect(() => {
+        getProducts({min: minPrice, max: maxPrice, name: productName, page: activePage})
+    }, [minPrice, maxPrice, productName, activePage])
+    const resetAllFilters = () => {
+        setMinPrice('')
+        setMaxPrice('')
+        setProductName('')
+    }
     return (
         <div style={{display: 'grid', gridTemplateRows: 'auto 1fr'}}>
             <Header/>
             <div style={{display: 'flex'}}>
-                <Filters/>
+                <div className={s.filtersContainer}>
+                    <div className={s.resetAllFilters}>
+                        <CustomTitle order={3}>Filters</CustomTitle>
+                        <CustomButton variant="transparent"
+                                      onClick={resetAllFilters}
+                                      color="gray">
+                            Reset All
+                            <CustomImage src={resetAll}/>
+                        </CustomButton>
+                    </div>
+                    <CustomText children={'Price'} fw={600}/>
+                    <div className={s.filterInputs}>
+                        <CustomInput placeholder={'From: '} value={minPrice} onChange={minPriceHandler} type={"number"}/>
+                        <CustomInput placeholder={'To: '} value={maxPrice} onChange={maxPriceHandler} type={"number"}/>
+                    </div>
+                </div>
+
                 <div className={s.searchInputContainer}>
-                    <CustomInput placeholder={'Type to search...'} leftSection={<IconSearch/>}/>
+                    <CustomInput placeholder={'Type to search...'}
+                                 leftSection={<IconSearch/>}
+                                 value={productName}
+                                 onChange={productNameHandler}
+                    />
                     <div className={s.sortContainer}>
-                        <CustomText children={'12 results'} fw={600}/>
+                        <CustomText fw={600}>{`${total} results`}</CustomText>
                         <CustomButton variant={'transparent'} color='black'>
                             <CustomImage style={{marginRight: '5px'}} src={sort}/>
                             Sort by newest
@@ -30,12 +80,21 @@ export const Products = () => {
                         </CustomButton>
                     </div>
                     <div>
-                        <CustomButton variant="outline" color="gray" radius="xl">$400-$1500
-                            <CustomImage style={{marginLeft: '5px'}} src={close}/>
-                        </CustomButton>
+                        {minPrice || maxPrice ?
+                            <CustomButton variant="outline" color="gray" radius="xl">
+                                {minPrice && !maxPrice && `$${minPrice}`}
+                                {!minPrice && maxPrice && `$${maxPrice}`}
+                                {minPrice && maxPrice && `$${minPrice} - $${maxPrice}`}
+                                <CustomButton style={{padding: '0px'}} variant="transparent" onClick={resetAllFilters}>
+                                    <CustomImage style={{marginLeft: '5px'}} src={close}/>
+                                </CustomButton>
+                            </CustomButton>
+                            : ''
+                        }
                     </div>
-                    <FoundProducts/>
-                    <CustomPagination/>
+                    <FoundProducts products={allProducts}/>
+                    {/*<CustomPagination resultLength={Math.floor(total/6)}/>*/}
+                    <Pagination value={activePage} onChange={setPage} total={Math.ceil(total/6)} />
                 </div>
             </div>
         </div>

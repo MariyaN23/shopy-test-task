@@ -1,24 +1,17 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import s from '../ProductCard/ProductCard.module.css'
 import {ProductType} from "../../../redux/products/productsReduces";
 import {ProductCard} from "../ProductCard/ProductCard";
-import {useSelector} from "react-redux";
-import {selectProducts} from "../../../redux/products/productsSelector";
-import {useActions} from "../../../redux/useActions";
-import {productsActions} from "../../../redux/products";
 
 
-export const FoundProducts = () => {
-    const allProducts = useSelector(selectProducts)
-    const {getProducts} = useActions(productsActions)
+type FoundProductsType = {
+    products: ProductType[]
+}
 
-    useEffect(() => {
-        getProducts()
-    }, [])
-
+export const FoundProducts = (props: FoundProductsType) => {
     return (
         <div className={s.allProducts}>
-            {allProducts.map((product: ProductType) => (
+            {props.products.map((product: ProductType) => (
                 <ProductCard key={product.id} product={product} />
             ))}
         </div>

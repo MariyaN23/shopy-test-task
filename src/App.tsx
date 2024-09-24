@@ -19,6 +19,7 @@ import {store} from "./redux/store";
 export const path = {
     signIn: '/auth/login',
     signUp: '/auth/registration',
+    logout: '/auth/logout',
     allProducts: '/products',
     myCart: '/cart',
     history: '/cart/history',

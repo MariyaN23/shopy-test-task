@@ -4,11 +4,17 @@ import {api} from "../../api/api";
 export type newProductType = {
     name: string
     price: number
+    userId: number
     image: string
 }
 
-export const getProducts = createAsyncThunk('products/getProducts', async () => {
-    const res = await api.getProducts()
+export const getProducts = createAsyncThunk('products/getProducts',async (arg: {min: string, max: string, name: string, page: number}, thunkAPI) => {
+    const res = await api.getProducts(arg.min, arg.max, arg.name, arg.page)
+    return res.data
+})
+
+export const getAllUsersProducts = createAsyncThunk('products/getAllUsersProducts',async (arg: {userId: number}, thunkAPI) => {
+    const res = await api.getAllUsersProducts(arg.userId)
     return res.data
 })
 

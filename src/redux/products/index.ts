@@ -8,5 +8,6 @@ const productsActions = {...productsAsyncActions, ...slice.actions}
 
 export {
     productsReduces,
-    productsActions
+    productsActions,
+    productsSelectors
 }

@@ -12,14 +12,17 @@ function chunk<T>(array: T[], size: number): T[][] {
     return [head, ...chunk(tail, size)];
 }
 
-const data = chunk(
-    Array(12)
-        .fill(0)
-        .map((_, index) => ({ id: index, name: randomId() })),
-    5
-);
+type CustomPaginationPropsType = {
+    resultLength: number
+}
 
-export const CustomPagination = () =>  {
+export const CustomPagination = (props: CustomPaginationPropsType) =>  {
+    const data = chunk(
+        Array(props.resultLength)
+            .fill(0)
+            .map((_, index) => ({ id: index, name: randomId() })),
+        9
+    );
     const [activePage, setPage] = useState(1)
     return (
         <div className={s.pagination}>

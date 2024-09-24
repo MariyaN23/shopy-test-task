@@ -12,10 +12,12 @@ import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
 import {FileInput} from "@mantine/core";
 import {useActions} from "../../../../redux/useActions";
 import {productsActions} from "../../../../redux/products";
+import {useSelector} from "react-redux";
+import {selectUsersId} from "../../../../redux/login/loginSelector";
 
 export const NewProduct = () => {
     const {addProduct} = useActions(productsActions)
-
+    const userId: number | null = useSelector(selectUsersId)
     const imgRef = useRef<HTMLButtonElement>(null)
     const [imgUrl, setImgUrl] = React.useState('')
     const onPhotoSelected = async (payload: File | null) => {
@@ -48,10 +50,11 @@ export const NewProduct = () => {
     }
 
     const uploadProduct = () => {
-        if (price && name && imgUrl && name.length <= 30) {
+        if (price && name && imgUrl && name.length <= 30 && userId) {
             const newProduct = {
                 name,
                 price: +price,
+                userId: userId,
                 image: imgUrl
             }
             addProduct(newProduct)

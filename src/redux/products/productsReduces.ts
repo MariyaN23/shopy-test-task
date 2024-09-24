@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {addProduct, getProducts} from "./productsActions";
+import {getAllUsersProducts, getProducts} from "./productsActions";
 
 export type ProductType = {
     id?: number
@@ -10,7 +10,17 @@ export type ProductType = {
     status?: 'On sale' | 'Sold'
 }
 
-const initialState: ProductType[] = []
+type InitialStateType = {
+    products: ProductType[]
+    allUsersProducts: ProductType[]
+    total: number
+}
+
+const initialState: InitialStateType = {
+    products: [],
+    allUsersProducts: [],
+    total: 0
+}
 
 export const slice = createSlice({
     name: "products",
@@ -18,10 +28,12 @@ export const slice = createSlice({
     reducers: {},
     extraReducers: builder => {
         builder.addCase(getProducts.fulfilled, (state, action) => {
-            return action.payload
+            //return action.payload
+            return { ...state, products: action.payload.products, total: action.payload.total }
         })
-            .addCase(addProduct.fulfilled, (state, action) => {
-                state.unshift(action.payload)
+            .addCase(getAllUsersProducts.fulfilled, (state, action) => {
+                //state.unshift(action.payload)
+                return { ...state, allUsersProducts: action.payload }
             })
     }
 })
