@@ -24,3 +24,28 @@
 .visitedPage {
    background-color: #ECECEE;
 }
+
+.cart {
+    position: relative;
+    display: inline-block;
+}
+
+.cartCount {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    background-color: #2B77EB;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    box-sizing: border-box;
+}
+
+.hideCount {
+    display: none;
+}

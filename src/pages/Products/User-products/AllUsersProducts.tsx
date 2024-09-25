@@ -19,7 +19,7 @@ export const AllUsersProducts = () => {
     return (
         <div style={{display: 'flex', maxWidth: "900px", flexWrap: "wrap"}}>
             {userProducts.map(product => (
-                <Item key={product.id} product={product} />
+                <Item key={product.productId} product={product} />
             ))}
         </div>
     );

@@ -10,8 +10,8 @@ type HistoryTableType = {
 }
 
 export const HistoryTable = (props: HistoryTableType) => {
-    const rows = props.products.map((product) => (
-        <Table.Tr key={product.id}>
+    const rows = props.products.map((product,index) => (
+        <Table.Tr key={index}>
             <Table.Td className={s.productImage}>
                 <CustomImage src={product.image}/>
             </Table.Td>

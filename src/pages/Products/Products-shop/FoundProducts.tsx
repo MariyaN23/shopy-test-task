@@ -11,8 +11,8 @@ type FoundProductsType = {
 export const FoundProducts = (props: FoundProductsType) => {
     return (
         <div className={s.allProducts}>
-            {props.products.map((product: ProductType) => (
-                <ProductCard key={product.id} product={product} />
+            {props.products.map((product: ProductType, index) => (
+                <ProductCard key={index} product={product} />
             ))}
         </div>
     );

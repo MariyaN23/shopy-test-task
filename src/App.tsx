@@ -23,8 +23,10 @@ export const path = {
     allProducts: '/products',
     myCart: '/cart',
     history: '/cart/history',
-    paymentSuccess: '/payment/success',
-    paymentFailed: '/payment/failed',
+    /*paymentSuccess: '/payment/success',
+    paymentFailed: '/payment/failed',*/
+    paymentSuccess: '/checkout-success',
+    paymentFailed: '/failure',
     userProducts: '/user/products',
     newProduct: '/user/products/new'
 } as const;

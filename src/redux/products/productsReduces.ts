@@ -1,13 +1,23 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {deleteProduct, getAllUsersProducts, getProducts} from "./productsActions";
 
-export type ProductType = {
+/*export type ProductType = {
     id?: number
     name: string
     price: number
     image?: string
     date?: string
     status?: 'On sale' | 'Sold'
+}*/
+
+export type ProductType = {
+    productId: number
+    name: string
+    price: number
+    date: string
+    status: 'On sale' | 'Sold'
+    image: string
+    userId: number
 }
 
 type InitialStateType = {
@@ -35,7 +45,7 @@ export const slice = createSlice({
             })
             .addCase(deleteProduct.fulfilled, (state, action) => {
                 const deletedProductId = action.meta.arg
-                state.allUsersProducts = state.allUsersProducts.filter(product => product.id !== deletedProductId)
+                state.allUsersProducts = state.allUsersProducts.filter(product => product.productId !== deletedProductId)
             })
     }
 })

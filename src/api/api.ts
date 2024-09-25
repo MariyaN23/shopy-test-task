@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {ProductType} from "../redux/products/productsReduces";
+import {newProductType} from "../redux/products/productsActions";
 
 export const instance = axios.create({
     baseURL: 'http://localhost:5000/'
@@ -15,7 +16,7 @@ export const api = {
    deleteUserProduct(productId: number) {
         return instance.delete<ProductType>(`products/${productId}`)
     },
-    addProduct(product: ProductType) {
+    addProduct(product: newProductType) {
         return instance.post<ProductType>('products', product)
     },
     login(email: string, password: string) {
@@ -27,4 +28,14 @@ export const api = {
     logout() {
         return instance.delete('auth/logout')
     },
+    stripe(cartItems: ProductType[]) {
+        instance.post('stripe/create-checkout-session', {cartItems})
+            .then((res)=> {
+                if (res.data.url) {
+                    window.location.href = res.data.url
+                }
+            }).catch((error) => {
+                console.log(error)
+        })
+    }
 }

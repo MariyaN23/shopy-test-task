@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Table} from "@mantine/core";
 import {CustomImage} from "../../../components/CustomImage";
 import s from './Cart.module.css'
@@ -7,49 +7,63 @@ import {CustomButton} from "../../../components/CustomButton";
 import minus from '../../../images/minus.svg'
 import plus from '../../../images/Plus.svg'
 import remove from '../../../images/close.svg'
-import {ProductType} from "../../../redux/products/productsReduces";
+import {useDispatch} from "react-redux";
+import {
+    decreaseItemsCount,
+    deleteItemFromCart,
+    increaseItemsCount,
+    ProductWithCount
+} from "../../../redux/cart/cartReducer";
 
 type ProductsTableType = {
-    addedProducts: ProductType[]
+    addedProducts: ProductWithCount[]
 }
 
 export const ProductsTable = (props: ProductsTableType) => {
-    const [quantity, setQuantity] = useState(1)
-    const [price, setPrice] = useState(0)
-    const minusQuantity =(price: number)=> {
-        if (quantity > 0) {
-            setQuantity(quantity - 1)
-            setPrice(price * (quantity - 1))
-        }
+    const dispatch = useDispatch()
+    const removeItemFromCart = (id: number) => {
+            dispatch(deleteItemFromCart(id))
     }
-    const addQuantity = (price: number) => {
-        setQuantity(quantity + 1)
-        setPrice(price * (quantity + 1))
+    const increaseItemsCountCallback = (id: number) => {
+            dispatch(increaseItemsCount(id))
     }
-    const rows = props.addedProducts.map((product) => (
-        <Table.Tr key={product.id}>
-            <Table.Td className={s.productImage} >
+    const decreaseItemsCountCallback = (id: number) => {
+            dispatch(decreaseItemsCount(id))
+    }
+    const rows = props.addedProducts.map((product, index) => (
+        <Table.Tr key={index}>
+            <Table.Td className={s.productImage}>
                 <CustomImage src={product.image}/>
             </Table.Td>
             <Table.Td>
                 <CustomText fw={700}>{product.name}</CustomText>
             </Table.Td>
             <Table.Td>
-                <CustomText size="lg">${price}</CustomText>
+                <CustomText size="lg">${product.price}</CustomText>
             </Table.Td>
             <Table.Td>
                 <div style={{display: 'flex'}}>
-                    <CustomButton onClick={()=>minusQuantity(+product.price)} variant="transparent" size="xs"><CustomImage src={minus}/></CustomButton>
-                    <CustomText size="lg">{quantity}</CustomText>
-                    <CustomButton onClick={()=>addQuantity(+product.price)} variant="transparent" size="xs"><CustomImage src={plus}/></CustomButton>
+                    <CustomButton variant="transparent"
+                                  size="xs"
+                                  onClick={() => decreaseItemsCountCallback(product.productId)}
+                    ><CustomImage src={minus}/></CustomButton>
+                    <CustomText size="lg">{product.count}</CustomText>
+                    <CustomButton variant="transparent"
+                                  size="xs"
+                                  onClick={() => increaseItemsCountCallback(product.productId)}
+                    ><CustomImage src={plus}/></CustomButton>
                 </div>
             </Table.Td>
             <Table.Td>
-                <CustomButton variant="transparent" color="gray"><CustomImage src={remove}/>Remove</CustomButton>
+                <CustomButton variant="transparent"
+                              color="gray"
+                              onClick={() => removeItemFromCart(product.productId)}>
+                    <CustomImage src={remove}/>
+                    Remove
+                </CustomButton>
             </Table.Td>
         </Table.Tr>
-    ));
-
+    ))
     return (
         <Table style={{maxWidth: '900px', marginLeft: '30px'}}>
             <Table.Thead>

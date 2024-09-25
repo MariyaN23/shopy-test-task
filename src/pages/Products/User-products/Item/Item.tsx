@@ -16,7 +16,7 @@ type ItemPropsType = {
 export const Item = (props: ItemPropsType) => {
     const {deleteProduct} = useActions(productsActions)
     const deleteUserProduct = ()=> {
-        const id = props.product.id
+        const id = props.product.productId
         if (id)
         deleteProduct(id)
     }

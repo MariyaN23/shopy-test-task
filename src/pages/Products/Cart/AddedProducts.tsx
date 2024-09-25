@@ -5,22 +5,32 @@ import {CustomTitle} from "../../../components/CustomTitle";
 import {CustomText} from "../../../components/CustomText";
 import {CustomButton} from "../../../components/CustomButton";
 import s from './Cart.module.css'
-import {ProductType} from "../../../redux/products/productsReduces";
-
-const addedProducts: ProductType[] = []
+import {useSelector} from "react-redux";
+import {selectItemsInCart, selectTotalPrice} from "../../../redux/cart/cartSelector";
+import {api} from "../../../api/api";
 
 export const AddedProducts = () => {
+    const itemsInCart = useSelector(selectItemsInCart)
+    const totalPrice = useSelector(selectTotalPrice)
+    const goToCheckout = () => {
+        console.log(itemsInCart)
+        api.stripe(itemsInCart)
+    }
     return (
-        addedProducts.length
+        itemsInCart.length
             ? <div style={{display: 'flex', gap: '200px'}}>
-                <ProductsTable addedProducts={addedProducts}/>
+                <ProductsTable addedProducts={itemsInCart}/>
                 <div className={s.total}>
                     <CustomTitle order={3}>Summary</CustomTitle>
                     <div className={s.price}>
                         <CustomText>Total price</CustomText>
-                        <CustomText fw={700}>$1927</CustomText>
+                        <CustomText fw={700}>{`$${totalPrice}`}</CustomText>
                     </div>
-                    <CustomButton fullWidth>Proceed to Checkout</CustomButton>
+                    <div>
+                        <CustomButton fullWidth style={{marginTop: '20px'}} onClick={goToCheckout}>
+                            Proceed to Checkout
+                        </CustomButton>
+                    </div>
                 </div>
             </div>
             : <div style={{display: 'flex', justifyContent: 'center'}}>

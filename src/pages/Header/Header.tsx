@@ -13,8 +13,10 @@ import {useActions} from "../../redux/useActions";
 import {loginActions} from "../../redux/login";
 import {useSelector} from "react-redux";
 import {selectIsAuthorised} from "../../redux/login/loginSelector";
+import {selectItemsInCart} from "../../redux/cart/cartSelector";
 
 export const Header = () => {
+    const itemsInCart = useSelector(selectItemsInCart)
     const {logout} = useActions(loginActions)
     const current = useLocation()
     const navigate = useNavigate()
@@ -38,13 +40,15 @@ export const Header = () => {
                         <CustomButton className={current.pathname ==='/products' ? s.visitedPage : ''} variant="transparent" color="gray" radius={'lg'}>Marketplace</CustomButton>
                     </NavLink>
                     <NavLink to={path.userProducts}>
-                        <CustomButton className={current.pathname ==='/user/products' ? s.visitedPage : ''}variant="transparent" color="gray" radius={'lg'}>Your Products</CustomButton>
+                        <CustomButton className={current.pathname ==='/user/products' ? s.visitedPage : ''} variant="transparent" color="gray" radius={'lg'}>Your Products</CustomButton>
                     </NavLink>
                 </MantineProvider>
             </div>
             <div className={s.ProductButtonsContainer}>
-                <NavLink to={path.myCart}>
-                    <CustomButton variant="transparent"><CustomImage src={cart}/>
+                <NavLink to={path.myCart} className={s.cart}>
+                    <CustomButton variant="transparent">
+                        <CustomImage src={cart}/>
+                        <span className={itemsInCart.length ? s.cartCount : s.hideCount}>{itemsInCart.length}</span>
                     </CustomButton>
                 </NavLink>
                 <NavLink to={path.logout}>
