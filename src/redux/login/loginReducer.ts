@@ -7,8 +7,8 @@ type InitialStateType = {
 }
 
 const initialState: InitialStateType = {
-    isAuthorised: false,
-    //isAuthorised: true,
+    //isAuthorised: false,
+    isAuthorised: true,
     userId: null
 }
 

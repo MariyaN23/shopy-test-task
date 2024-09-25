@@ -34,7 +34,7 @@ function App() {
         <MantineProvider theme={theme}>
             <Provider store={store}>
                 <Routes>
-                    <Route path={'/'} element={<Navigate to={path.signUp}/>}/>
+                    <Route path={'/'} element={<Navigate to={path.signIn}/>}/>
                     <Route path={path.signUp} element={<SignUpPage/>}/>
                     <Route path={path.signIn} element={<SingInPage/>}/>
                     <Route path={path.allProducts} element={<Products/>}/>

@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {getAllUsersProducts, getProducts} from "./productsActions";
+import {deleteProduct, getAllUsersProducts, getProducts} from "./productsActions";
 
 export type ProductType = {
     id?: number
@@ -28,12 +28,14 @@ export const slice = createSlice({
     reducers: {},
     extraReducers: builder => {
         builder.addCase(getProducts.fulfilled, (state, action) => {
-            //return action.payload
             return { ...state, products: action.payload.products, total: action.payload.total }
         })
             .addCase(getAllUsersProducts.fulfilled, (state, action) => {
-                //state.unshift(action.payload)
                 return { ...state, allUsersProducts: action.payload }
+            })
+            .addCase(deleteProduct.fulfilled, (state, action) => {
+                const deletedProductId = action.meta.arg
+                state.allUsersProducts = state.allUsersProducts.filter(product => product.id !== deletedProductId)
             })
     }
 })

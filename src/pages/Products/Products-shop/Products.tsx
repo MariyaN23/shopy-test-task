@@ -10,7 +10,6 @@ import sort from '../../../images/Swap.svg'
 import arrowDown from '../../../images/arrow-down.svg'
 import close from '../../../images/close-in-circle.svg'
 import {FoundProducts} from "./FoundProducts";
-import {CustomPagination} from "../ProductCard/CustomPagination";
 import {useSelector} from "react-redux";
 import {selectProducts, selectTotal} from "../../../redux/products/productsSelector";
 import {useActions} from "../../../redux/useActions";
@@ -26,7 +25,8 @@ export const Products = () => {
     const [minPrice, setMinPrice] = useState('')
     const [maxPrice, setMaxPrice] = useState('')
     const [productName, setProductName] = useState('')
-    const [activePage, setPage] = useState(1);
+    const [activePage, setPage] = useState(1)
+    const [order, setOrder] = useState<'asc' | 'desc'>('asc')
     const minPriceHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setMinPrice(e.currentTarget.value)
     }
@@ -37,12 +37,16 @@ export const Products = () => {
         setProductName(e.currentTarget.value)
     }
     useEffect(() => {
-        getProducts({min: minPrice, max: maxPrice, name: productName, page: activePage})
-    }, [minPrice, maxPrice, productName, activePage])
+        getProducts({min: minPrice, max: maxPrice, name: productName, page: activePage, order: order})
+    }, [minPrice, maxPrice, productName, activePage, order])
     const resetAllFilters = () => {
         setMinPrice('')
         setMaxPrice('')
         setProductName('')
+    }
+    const changeSortingOrder =()=> {
+        const newOrder = order === 'asc' ? 'desc' : 'asc'
+        setOrder(newOrder)
     }
     return (
         <div style={{display: 'grid', gridTemplateRows: 'auto 1fr'}}>
@@ -73,9 +77,9 @@ export const Products = () => {
                     />
                     <div className={s.sortContainer}>
                         <CustomText fw={600}>{`${total} results`}</CustomText>
-                        <CustomButton variant={'transparent'} color='black'>
+                        <CustomButton variant={'transparent'} color='black' onClick={changeSortingOrder}>
                             <CustomImage style={{marginRight: '5px'}} src={sort}/>
-                            Sort by newest
+                            {order === 'asc' ? 'Sort by newest' : 'Sort by oldest'}
                             <CustomImage style={{marginLeft: '5px'}} src={arrowDown}/>
                         </CustomButton>
                     </div>
@@ -93,8 +97,9 @@ export const Products = () => {
                         }
                     </div>
                     <FoundProducts products={allProducts}/>
-                    {/*<CustomPagination resultLength={Math.floor(total/6)}/>*/}
-                    <Pagination value={activePage} onChange={setPage} total={Math.ceil(total/6)} />
+                    <div className={s.pagination}>
+                        <Pagination value={activePage} onChange={setPage} total={Math.ceil(total/6)} />
+                    </div>
                 </div>
             </div>
         </div>

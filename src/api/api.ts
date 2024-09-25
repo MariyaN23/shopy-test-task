@@ -6,11 +6,14 @@ export const instance = axios.create({
 })
 
 export const api = {
-    getProducts(min: string, max: string, name: string, page: number) {
-        return instance.get<{products: ProductType[], total: number}>(`products?min=${min}&max=${max}&name=${name}&page=${page}`)
+    getProducts(min: string, max: string, name: string, page: number, order: 'asc' | 'desc') {
+        return instance.get<{products: ProductType[], total: number}>(`products?min=${min}&max=${max}&name=${name}&page=${page}&order=${order}`)
     },
     getAllUsersProducts(userId: number) {
         return instance.get<ProductType[]>(`products/${userId}`)
+    },
+   deleteUserProduct(productId: number) {
+        return instance.delete<ProductType>(`products/${productId}`)
     },
     addProduct(product: ProductType) {
         return instance.post<ProductType>('products', product)
