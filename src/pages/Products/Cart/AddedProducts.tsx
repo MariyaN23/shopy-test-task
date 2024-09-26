@@ -8,9 +8,10 @@ import s from './Cart.module.css'
 import {useSelector} from "react-redux";
 import {selectItemsInCart, selectTotalPrice} from "../../../redux/cart/cartSelector";
 import {api} from "../../../api/api";
+import {ProductWithCount} from "../../../redux/cart/cartReducer";
 
 export const AddedProducts = () => {
-    const itemsInCart = useSelector(selectItemsInCart)
+    const itemsInCart: ProductWithCount[] = useSelector(selectItemsInCart)
     const totalPrice = useSelector(selectTotalPrice)
     const goToCheckout = () => {
         console.log(itemsInCart)

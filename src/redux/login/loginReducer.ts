@@ -7,8 +7,8 @@ type InitialStateType = {
 }
 
 const initialState: InitialStateType = {
-    //isAuthorised: false,
-    isAuthorised: true,
+    isAuthorised: false,
+    //isAuthorised: true,
     userId: null
 }
 
@@ -29,7 +29,7 @@ export const slice = createSlice({
             state.userId = action.payload.userId
         })
             .addCase(registrationFormSending.fulfilled, (state) => {
-                state.isAuthorised = true
+                //state.isAuthorised = true
             })
             .addCase(logout.fulfilled, (state) => {
                 state.isAuthorised = false

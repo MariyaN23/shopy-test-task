@@ -15,6 +15,7 @@ import {UserProducts} from "./pages/Products/User-products/UserProducts";
 import {NewProduct} from "./pages/Products/User-products/NewProduct/NewProduct";
 import {Provider} from "react-redux";
 import {store} from "./redux/store";
+import {RegistrationSuccess} from "./pages/Login/signup/registration/RegistrationSuccess";
 
 export const path = {
     signIn: '/auth/login',
@@ -28,7 +29,8 @@ export const path = {
     paymentSuccess: '/checkout-success',
     paymentFailed: '/failure',
     userProducts: '/user/products',
-    newProduct: '/user/products/new'
+    newProduct: '/user/products/new',
+    registrationSuccess: '/registration-success',
 } as const;
 
 function App() {
@@ -46,6 +48,7 @@ function App() {
                     <Route path={path.paymentFailed} element={<PaymentFailed/>}/>
                     <Route path={path.userProducts} element={<UserProducts/>}/>
                     <Route path={path.newProduct} element={<NewProduct/>}/>
+                    <Route path={path.registrationSuccess} element={<RegistrationSuccess/>}/>
                     <Route path={'/*'} element={<Error/>}/>
                 </Routes>
             </Provider>

@@ -1,12 +1,15 @@
 import React from 'react';
-import { useForm } from '@mantine/form';
+import {useForm} from '@mantine/form';
 import {Button, PasswordInput, TextInput} from '@mantine/core';
-import { PasswordStrength } from './PasswordStrength';
+import {PasswordStrength} from './PasswordStrength';
 import {useActions} from "../../../redux/useActions";
 import {loginActions} from "../../../redux/login";
+import {useNavigate} from "react-router-dom";
+import {path} from "../../../App";
 
 export const RegistrationForm = () => {
-    const {loginFormSending} = useActions(loginActions)
+    const {registrationFormSending} = useActions(loginActions)
+    const navigate = useNavigate()
     const form = useForm({
         mode: 'controlled',
         initialValues: {
@@ -14,13 +17,15 @@ export const RegistrationForm = () => {
             password: ''
         },
         validate: {
-            email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email')
+            email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+            password: (value) => (/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).+$/.test(value) ? null : 'Invalid password')
         },
     });
 
     return (
         <form onSubmit={form.onSubmit((values) => {
-            console.log(values); // Здесь будет правильное значение пароля
+            registrationFormSending(values)
+            navigate(path.registrationSuccess)
         })}>
             <TextInput
                 label="Email Address"

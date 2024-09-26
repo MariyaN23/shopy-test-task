@@ -34,8 +34,9 @@ export const api = {
                 if (res.data.url) {
                     window.location.href = res.data.url
                 }
+                return res.data
             }).catch((error) => {
-                console.log(error)
+                console.log(`Error: ${error.message}`)
         })
     }
 }

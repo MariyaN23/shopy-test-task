@@ -1,11 +1,13 @@
-import {Box, Center, Group, Progress, Text} from '@mantine/core';
-import {IconCheck, IconX} from '@tabler/icons-react';
+import {Box, Center, Checkbox, Progress, Text} from '@mantine/core';
 
 function PasswordRequirement({ meets, label }: { meets: boolean; label: string }) {
     return (
-        <Text component="div" c={meets ? 'teal' : 'red'} mt={5} size="sm">
+        <Text component="div" c={'gray'} mt={5} size="sm">
             <Center inline>
-                {meets ? <IconCheck size="0.9rem" stroke={1.5} /> : <IconX size="0.9rem" stroke={1.5} />}
+                {meets
+                    ? <Checkbox checked={true} readOnly variant="outline" radius="xl" size="xs"/>
+                    : <Checkbox checked={false} readOnly variant="outline" radius="xl" size="xs"/>
+                }
                 <Box ml={7}>{label}</Box>
             </Center>
         </Text>
@@ -13,10 +15,8 @@ function PasswordRequirement({ meets, label }: { meets: boolean; label: string }
 }
 
 const requirements = [
-    { re: /[0-9]/, label: 'Includes number' },
-    { re: /[a-z]/, label: 'Includes lowercase letter' },
-    { re: /[A-Z]/, label: 'Includes uppercase letter' },
-    { re: /[$&+,:;=?@#|'<>.^*()%!-]/, label: 'Includes special symbol' },
+    { re: /[0-9]/, label: 'Must contain at least 1 number' },
+    { re: /^(?=.*[a-z])(?=.*[A-Z]).+$/, label: 'Must contain lowercase and capital letters' },
 ];
 
 function getStrength(password: string) {
@@ -53,10 +53,10 @@ export function PasswordStrength({password}: Props) {
         ));
     return (
         <div>
-            <Group gap={5} grow mt="xs" mb="md">
+            {/*<Group gap={5} grow mt="xs" mb="md">
                 {bars}
-            </Group>
-            <PasswordRequirement label="Has at least 8 characters" meets={password.length > 7} />
+            </Group>*/}
+            <PasswordRequirement label="Must be at least 8 characters" meets={password.length > 7} />
             {checks}
         </div>
     );
