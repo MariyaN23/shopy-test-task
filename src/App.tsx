@@ -24,10 +24,8 @@ export const path = {
     allProducts: '/products',
     myCart: '/cart',
     history: '/cart/history',
-    /*paymentSuccess: '/payment/success',
-    paymentFailed: '/payment/failed',*/
-    paymentSuccess: '/checkout-success',
-    paymentFailed: '/failure',
+    paymentSuccess: '/payment/success',
+    paymentFailed: '/payment/failed',
     userProducts: '/user/products',
     newProduct: '/user/products/new',
     registrationSuccess: '/registration-success',

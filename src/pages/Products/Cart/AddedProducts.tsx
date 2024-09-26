@@ -7,16 +7,12 @@ import {CustomButton} from "../../../components/CustomButton";
 import s from './Cart.module.css'
 import {useSelector} from "react-redux";
 import {selectItemsInCart, selectTotalPrice} from "../../../redux/cart/cartSelector";
-import {api} from "../../../api/api";
 import {ProductWithCount} from "../../../redux/cart/cartReducer";
+import {makePayment} from "../../../api/payment";
 
 export const AddedProducts = () => {
     const itemsInCart: ProductWithCount[] = useSelector(selectItemsInCart)
     const totalPrice = useSelector(selectTotalPrice)
-    const goToCheckout = () => {
-        console.log(itemsInCart)
-        api.stripe(itemsInCart)
-    }
     return (
         itemsInCart.length
             ? <div style={{display: 'flex', gap: '200px'}}>
@@ -28,7 +24,7 @@ export const AddedProducts = () => {
                         <CustomText fw={700}>{`$${totalPrice}`}</CustomText>
                     </div>
                     <div>
-                        <CustomButton fullWidth style={{marginTop: '20px'}} onClick={goToCheckout}>
+                        <CustomButton fullWidth style={{marginTop: '20px'}} onClick={()=>makePayment(itemsInCart)}>
                             Proceed to Checkout
                         </CustomButton>
                     </div>

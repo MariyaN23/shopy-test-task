@@ -28,15 +28,4 @@ export const api = {
     logout() {
         return instance.delete('auth/logout')
     },
-    stripe(cartItems: ProductType[]) {
-        instance.post('stripe/create-checkout-session', {cartItems})
-            .then((res)=> {
-                if (res.data.url) {
-                    window.location.href = res.data.url
-                }
-                return res.data
-            }).catch((error) => {
-                console.log(`Error: ${error.message}`)
-        })
-    }
 }
