@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {CustomImage} from "../../../../components/CustomImage";
 import {CustomText} from "../../../../components/CustomText";
 import {CustomButton} from "../../../../components/CustomButton";
@@ -16,9 +16,7 @@ type ItemPropsType = {
 export const Item = (props: ItemPropsType) => {
     const {deleteProduct} = useActions(productsActions)
     const deleteUserProduct = ()=> {
-        const id = props.product.productId
-        if (id)
-        deleteProduct(id)
+        deleteProduct(props.product.productId)
     }
     return (
         <div className={s.ItemCard}>

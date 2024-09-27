@@ -15,7 +15,7 @@ export const AllUsersProducts = () => {
         if (userId) {
             getAllUsersProducts({userId: userId})
         }
-    }, [])
+    }, [userId])
     return (
         <div style={{display: 'flex', maxWidth: "900px", flexWrap: "wrap"}}>
             {userProducts.map(product => (

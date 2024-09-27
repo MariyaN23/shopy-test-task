@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import s from './NewProduct.module.css'
 import {Header} from "../../../Header/Header";
 import {CustomTitle} from "../../../../components/CustomTitle";
@@ -9,11 +9,12 @@ import {CustomText} from "../../../../components/CustomText";
 import {CustomInput} from "../../../../components/CustomInput";
 import {app} from "../../../../firebase";
 import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
-import {FileInput} from "@mantine/core";
+import {FileInput, Notification, rem} from "@mantine/core";
 import {useActions} from "../../../../redux/useActions";
 import {productsActions} from "../../../../redux/products";
 import {useSelector} from "react-redux";
 import {selectUsersId} from "../../../../redux/login/loginSelector";
+import {IconCheck} from "@tabler/icons-react";
 
 export const NewProduct = () => {
     const {addProduct} = useActions(productsActions)
@@ -29,7 +30,6 @@ export const NewProduct = () => {
                     const storageRef = ref(storage, "products/" + image.name)
                     await uploadBytes(storageRef, image)
                     const downloadUrl = await getDownloadURL(storageRef)
-                    console.log(downloadUrl)
                     setImgUrl(downloadUrl)
                 } catch (e) {
                     console.log(e)
@@ -48,7 +48,7 @@ export const NewProduct = () => {
     const nameOfProduct = (e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.currentTarget.value)
     }
-
+    const [notification, setNotification] = useState(false)
     const uploadProduct = () => {
         if (price && name && imgUrl && name.length <= 30 && userId) {
             const newProduct = {
@@ -58,14 +58,18 @@ export const NewProduct = () => {
                 image: imgUrl
             }
             addProduct(newProduct)
+            //add notification
             setPrice('')
             setName('')
             setImgUrl('')
+            setNotification(true)
             if (imgRef.current) {
                 imgRef.current.textContent = 'Upload Photo'
             }
         }
     }
+    const checkIcon = <IconCheck style={{width: rem(20), height: rem(20)}}/>
+
     return (
         <div>
             <Header/>
@@ -91,6 +95,11 @@ export const NewProduct = () => {
                         <CustomButton onClick={uploadProduct}>Upload Product</CustomButton>
                     </div>
                 </div>
+            </div>
+            <div className={s.notification}>
+                {notification && <Notification icon={checkIcon} onClose={()=>setNotification(false)} color="teal" title="All good!" mt="md">
+                    New product is created
+                </Notification>}
             </div>
         </div>
     );

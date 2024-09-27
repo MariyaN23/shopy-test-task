@@ -12,22 +12,29 @@ import {NavLink, useLocation, useNavigate} from "react-router-dom";
 import {useActions} from "../../redux/useActions";
 import {loginActions} from "../../redux/login";
 import {useSelector} from "react-redux";
-import {selectIsAuthorised} from "../../redux/login/loginSelector";
+import {selectIsAuthorised, selectUsersId} from "../../redux/login/loginSelector";
 import {selectItemsInCart} from "../../redux/cart/cartSelector";
+import {cartActions} from "../../redux/cart";
 
 export const Header = () => {
     const itemsInCart = useSelector(selectItemsInCart)
+    const id = useSelector(selectUsersId)
     const {logout} = useActions(loginActions)
+    const {fetchCartData} = useActions(cartActions)
     const current = useLocation()
     const navigate = useNavigate()
     const isAuthorised = useSelector(selectIsAuthorised)
-    const logoutHandler =()=> {
+    const logoutHandler = () => {
         logout()
         navigate(path.signIn)
     }
     useEffect(() => {
         if (!isAuthorised) {
             navigate(path.signIn)
+        } else {
+            if (id) {
+                fetchCartData(id)
+            }
         }
     }, [isAuthorised])
 
@@ -37,10 +44,12 @@ export const Header = () => {
             <div className={s.ProductButtonsContainer}>
                 <MantineProvider theme={{variantColorResolver}}>
                     <NavLink to={path.allProducts}>
-                        <CustomButton className={current.pathname ==='/products' ? s.visitedPage : ''} variant="transparent" color="gray" radius={'lg'}>Marketplace</CustomButton>
+                        <CustomButton className={current.pathname === '/products' ? s.visitedPage : ''}
+                                      variant="transparent" color="gray" radius={'lg'}>Marketplace</CustomButton>
                     </NavLink>
                     <NavLink to={path.userProducts}>
-                        <CustomButton className={current.pathname ==='/user/products' ? s.visitedPage : ''} variant="transparent" color="gray" radius={'lg'}>Your Products</CustomButton>
+                        <CustomButton className={current.pathname === '/user/products' ? s.visitedPage : ''}
+                                      variant="transparent" color="gray" radius={'lg'}>Your Products</CustomButton>
                     </NavLink>
                 </MantineProvider>
             </div>
@@ -52,7 +61,8 @@ export const Header = () => {
                     </CustomButton>
                 </NavLink>
                 <NavLink to={path.logout}>
-                    <CustomButton variant="transparent" onClick={logoutHandler}><CustomImage src={logoutButton}/></CustomButton>
+                    <CustomButton variant="transparent" onClick={logoutHandler}><CustomImage
+                        src={logoutButton}/></CustomButton>
                 </NavLink>
             </div>
         </div>

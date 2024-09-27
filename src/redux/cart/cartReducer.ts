@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {ProductType} from "../products/productsReduces";
 
 export type ProductWithCount = ProductType & { count: number };
@@ -32,9 +32,12 @@ export const slice = createSlice({
         decreaseItemsCount: (state, action) => {
             state.itemsInCart = state.itemsInCart.map((item)=> item.productId === action.payload ?{...item, count: item.count-1} : item).filter(item=>item.count!==0)
             state.totalPrice = state.itemsInCart.reduce((total, item) => total + item.price*item.count, 0)
-        }
-
-    }
+        },
+        setInitialItems: (state, action) => {
+            state.itemsInCart = action.payload.itemsInCart
+            state.totalPrice = action.payload.totalPrice
+        },
+    },
 })
 
-export const {setItemInCart, deleteItemFromCart, increaseItemsCount, decreaseItemsCount} = slice.actions
+export const {setItemInCart, deleteItemFromCart, increaseItemsCount, decreaseItemsCount, setInitialItems} = slice.actions

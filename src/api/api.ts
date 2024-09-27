@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {ProductType} from "../redux/products/productsReduces";
 import {newProductType} from "../redux/products/productsActions";
+import {ProductWithCount} from "../redux/cart/cartReducer";
 
 export const instance = axios.create({
     baseURL: 'http://localhost:5000/'
@@ -28,4 +29,10 @@ export const api = {
     logout() {
         return instance.delete('auth/logout')
     },
+    getCartData(userId: number) {
+        return instance.get(`/cart/${userId}`)
+    },
+    postDataToCart(userId: number, itemsInCart: ProductWithCount[], totalPrice: number) {
+        return instance.post(`/cart/${userId}`, {itemsInCart, totalPrice})
+    }
 }

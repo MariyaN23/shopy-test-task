@@ -30,3 +30,7 @@
 .uploadPhotoInput span {
     color: black;
 }
+
+.notification {
+    max-width: 250px;
+}
