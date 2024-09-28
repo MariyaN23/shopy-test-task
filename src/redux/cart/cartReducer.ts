@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit";
 import {ProductType} from "../products/productsReduces";
 
 export type ProductWithCount = ProductType & { count: number };

@@ -1,9 +1,9 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {Logo} from "../../components/logo/Logo";
 import s from './Header.module.css'
 import {CustomButton} from "../../components/CustomButton";
 import {CustomImage} from "../../components/CustomImage";
-import cart from '../../images/Cart.svg'
+import cartImg from '../../images/Cart.svg'
 import logoutButton from '../../images/Logout.svg'
 import {MantineProvider} from "@mantine/core";
 import {variantColorResolver} from "../../mantine/variantColorResolver";
@@ -13,22 +13,26 @@ import {useActions} from "../../redux/useActions";
 import {loginActions} from "../../redux/login";
 import {useSelector} from "react-redux";
 import {selectIsAuthorised, selectUsersId} from "../../redux/login/loginSelector";
-import {selectItemsInCart} from "../../redux/cart/cartSelector";
+import {selectCart, selectItemsInCart} from "../../redux/cart/cartSelector";
 import {cartActions} from "../../redux/cart";
 
 export const Header = () => {
     const itemsInCart = useSelector(selectItemsInCart)
     const id = useSelector(selectUsersId)
+    const cart = useSelector(selectCart)
     const {logout} = useActions(loginActions)
-    const {fetchCartData} = useActions(cartActions)
+    const {fetchCartData, setDataToCart} = useActions(cartActions)
     const current = useLocation()
     const navigate = useNavigate()
     const isAuthorised = useSelector(selectIsAuthorised)
+    const { isMe} = useActions(loginActions)
     const logoutHandler = () => {
         logout()
         navigate(path.signIn)
     }
+
     useEffect(() => {
+        isMe()
         if (!isAuthorised) {
             navigate(path.signIn)
         } else {
@@ -37,6 +41,16 @@ export const Header = () => {
             }
         }
     }, [isAuthorised])
+
+    useEffect(() => {
+        if (id && cart.itemsInCart.length) {
+            setDataToCart({
+                userId: id,
+                itemsInCart: cart.itemsInCart,
+                totalPrice: cart.totalPrice
+            })
+        }
+    }, [cart])
 
     return (
         <div className={s.header}>
@@ -56,7 +70,7 @@ export const Header = () => {
             <div className={s.ProductButtonsContainer}>
                 <NavLink to={path.myCart} className={s.cart}>
                     <CustomButton variant="transparent">
-                        <CustomImage src={cart}/>
+                        <CustomImage src={cartImg}/>
                         <span className={itemsInCart.length ? s.cartCount : s.hideCount}>{itemsInCart.length}</span>
                     </CustomButton>
                 </NavLink>

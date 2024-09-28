@@ -24,3 +24,12 @@ export const logout = createAsyncThunk('login/logout',
     async (arg, thunkAPI) => {
         await api.logout()
     })
+
+export const isMe = createAsyncThunk('login/isMe',
+    async (arg, thunkAPI) => {
+        const res = await api.me()
+        debugger
+        if (res.data.isAuthorized) {
+            thunkAPI.dispatch(setIsAuthorised(true))
+        }
+    })

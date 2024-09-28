@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import s from "../Cart/Cart.module.css";
 import {CustomImage} from "../../../components/CustomImage";
 import success from "../../../images/PartyPopper.svg";
@@ -8,8 +8,26 @@ import {NavLink} from "react-router-dom";
 import {path} from "../../../App";
 import {CustomButton} from "../../../components/CustomButton";
 import {Header} from "../../Header/Header";
+import {useSelector} from "react-redux";
+import {selectCart} from "../../../redux/cart/cartSelector";
+import {selectUsersId} from "../../../redux/login/loginSelector";
+import {useActions} from "../../../redux/useActions";
+import {cartActions} from "../../../redux/cart";
+import {loginActions} from "../../../redux/login";
 
 export const PaymentSuccess = () => {
+    const cart = useSelector(selectCart)
+    const id = useSelector(selectUsersId)
+    const { setDataToCart} = useActions(cartActions)
+    useEffect(() => {
+        if (id && cart.itemsInCart.length) {
+            setDataToCart({
+                userId: id,
+                itemsInCart: [],
+                totalPrice: 0
+            })
+        }
+    }, [])
     return (
         <div style={{display: 'grid', gridTemplateRows: 'auto 1fr'}}>
             <Header/>
