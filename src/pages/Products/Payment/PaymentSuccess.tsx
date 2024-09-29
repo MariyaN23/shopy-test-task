@@ -9,28 +9,33 @@ import {path} from "../../../App";
 import {CustomButton} from "../../../components/CustomButton";
 import {Header} from "../../Header/Header";
 import {useSelector} from "react-redux";
-import {selectCart} from "../../../redux/cart/cartSelector";
 import {selectUsersId} from "../../../redux/login/loginSelector";
 import {useActions} from "../../../redux/useActions";
+import {historyActions} from "../../../redux/history";
 import {cartActions} from "../../../redux/cart";
 import {loginActions} from "../../../redux/login";
 
 export const PaymentSuccess = () => {
-    const cart = useSelector(selectCart)
+    const { isMe} = useActions(loginActions)
     const id = useSelector(selectUsersId)
+    const {addDataToHistory} = useActions(historyActions)
     const { setDataToCart} = useActions(cartActions)
     useEffect(() => {
-        if (id && cart.itemsInCart.length) {
+       isMe()
+    }, [])
+    useEffect(() => {
+        if (id) {
+            debugger
+            addDataToHistory(id)
             setDataToCart({
                 userId: id,
                 itemsInCart: [],
                 totalPrice: 0
             })
         }
-    }, [])
+    }, [id])
     return (
         <div style={{display: 'grid', gridTemplateRows: 'auto 1fr'}}>
-            <Header/>
             <div style={{display: 'flex', justifyContent: 'center', marginTop: '100px'}}>
                 <div className={s.imageAndText}>
                     <CustomImage style={{width: '55px', height: '55px'}} src={success}/>

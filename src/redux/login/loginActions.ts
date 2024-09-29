@@ -23,13 +23,14 @@ export const registrationFormSending = createAsyncThunk('login/registrationFormS
 export const logout = createAsyncThunk('login/logout',
     async (arg, thunkAPI) => {
         await api.logout()
+        document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
     })
 
 export const isMe = createAsyncThunk('login/isMe',
     async (arg, thunkAPI) => {
         const res = await api.me()
-        debugger
         if (res.data.isAuthorized) {
             thunkAPI.dispatch(setIsAuthorised(true))
+            thunkAPI.dispatch(setUserId(res.data.userId))
         }
     })

@@ -4,9 +4,10 @@ import s from "../Cart/Cart.module.css";
 import {CustomImage} from "../../../components/CustomImage";
 import {CustomText} from "../../../components/CustomText";
 import {ProductType} from "../../../redux/products/productsReduces";
+import {ProductInHistoryType} from "../../../redux/history/historyReducer";
 
 type HistoryTableType = {
-    products: ProductType[]
+    products: ProductInHistoryType[]
 }
 
 export const HistoryTable = (props: HistoryTableType) => {
@@ -22,7 +23,7 @@ export const HistoryTable = (props: HistoryTableType) => {
                     <CustomText size="lg">${product.price}</CustomText>
             </Table.Td>
             <Table.Td>
-                <CustomText size="lg">{product.date}</CustomText>
+                <CustomText size="lg">{product.dateOfBuy}</CustomText>
             </Table.Td>
         </Table.Tr>
     ));

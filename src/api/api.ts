@@ -38,9 +38,15 @@ export const api = {
         return instance2.get('auth/me')
     },
     getCartData(userId: number) {
-        return instance.get(`/cart/${userId}`)
+        return instance.get(`cart/${userId}`)
     },
     postDataToCart(userId: number, itemsInCart: ProductWithCount[], totalPrice: number) {
-        return instance.post(`/cart/${userId}`, {itemsInCart, totalPrice})
-    }
+        return instance.post(`cart/${userId}`, {itemsInCart, totalPrice})
+    },
+    addDataToHistory(userId: number) {
+        return instance.post(`history/${userId}`)
+    },
+    getHistory(userId: number) {
+        return instance.get(`history/${userId}`)
+    },
 }

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect} from 'react';
 import {Logo} from "../../components/logo/Logo";
 import s from './Header.module.css'
 import {CustomButton} from "../../components/CustomButton";
@@ -15,17 +15,24 @@ import {useSelector} from "react-redux";
 import {selectIsAuthorised, selectUsersId} from "../../redux/login/loginSelector";
 import {selectCart, selectItemsInCart} from "../../redux/cart/cartSelector";
 import {cartActions} from "../../redux/cart";
+import {historyActions} from "../../redux/history";
 
 export const Header = () => {
-    const itemsInCart = useSelector(selectItemsInCart)
     const id = useSelector(selectUsersId)
+
+    const itemsInCart = useSelector(selectItemsInCart)
     const cart = useSelector(selectCart)
-    const {logout} = useActions(loginActions)
     const {fetchCartData, setDataToCart} = useActions(cartActions)
-    const current = useLocation()
-    const navigate = useNavigate()
+
+    const {logout} = useActions(loginActions)
     const isAuthorised = useSelector(selectIsAuthorised)
     const { isMe} = useActions(loginActions)
+
+    const {getHistory} = useActions(historyActions)
+
+    const current = useLocation()
+    const navigate = useNavigate()
+
     const logoutHandler = () => {
         logout()
         navigate(path.signIn)
@@ -38,6 +45,7 @@ export const Header = () => {
         } else {
             if (id) {
                 fetchCartData(id)
+                getHistory(id)
             }
         }
     }, [isAuthorised])
