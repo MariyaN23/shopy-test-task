@@ -20,7 +20,7 @@ export const slice = createSlice({
         },
         setUserId(state, action: PayloadAction<number>) {
             state.userId = action.payload
-        }
+        },
     },
     extraReducers: builder => {
         builder.addCase(loginFormSending.fulfilled, (state, action) => {

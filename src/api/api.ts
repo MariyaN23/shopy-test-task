@@ -26,13 +26,13 @@ export const api = {
         return instance.post<ProductType>('products', product)
     },
     login(email: string, password: string) {
-        return instance.post('auth/login', {username: email, password})
+        return instance2.post('auth/login', {username: email, password})
     },
     registration(email: string, password: string) {
         return instance.post('auth/registration', {username: email, password})
     },
     logout() {
-        return instance.delete('auth/logout')
+        return instance2.delete('auth/logout')
     },
     me() {
         return instance2.get('auth/me')
