@@ -4,11 +4,13 @@ import {newProductType} from "../redux/products/productsActions";
 import {ProductWithCount} from "../redux/cart/cartReducer";
 
 export const instance = axios.create({
-    baseURL: 'http://localhost:5000/',
+    //baseURL: 'http://localhost:5000/',
+    baseURL: 'https://shopy-test-task-back.onrender.com/',
 })
 
 export const instance2 = axios.create({
-    baseURL: 'http://localhost:5000/',
+    //baseURL: 'http://localhost:5000/',
+    baseURL: 'https://shopy-test-task-back.onrender.com/',
     withCredentials: true,
 })
 
