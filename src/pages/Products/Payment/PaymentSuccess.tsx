@@ -7,7 +7,6 @@ import {CustomText} from "../../../components/CustomText";
 import {NavLink} from "react-router-dom";
 import {path} from "../../../App";
 import {CustomButton} from "../../../components/CustomButton";
-import {Header} from "../../Header/Header";
 import {useSelector} from "react-redux";
 import {selectUsersId} from "../../../redux/login/loginSelector";
 import {useActions} from "../../../redux/useActions";
@@ -25,7 +24,6 @@ export const PaymentSuccess = () => {
     }, [])
     useEffect(() => {
         if (id) {
-            debugger
             addDataToHistory(id)
             setDataToCart({
                 userId: id,
@@ -36,7 +34,7 @@ export const PaymentSuccess = () => {
     }, [id])
     return (
         <div style={{display: 'grid', gridTemplateRows: 'auto 1fr'}}>
-            <div style={{display: 'flex', justifyContent: 'center', marginTop: '100px'}}>
+            <div style={{display: 'flex', justifyContent: 'center', marginTop: '150px'}}>
                 <div className={s.imageAndText}>
                     <CustomImage style={{width: '55px', height: '55px'}} src={success}/>
                     <CustomTitle order={3}>Payment Successful</CustomTitle>

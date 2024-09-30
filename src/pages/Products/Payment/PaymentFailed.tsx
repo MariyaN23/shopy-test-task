@@ -12,7 +12,7 @@ import {CustomButton} from "../../../components/CustomButton";
 export const PaymentFailed = () => {
     return (
         <div style={{display: 'grid', gridTemplateRows: 'auto 1fr'}}>
-            <div style={{display: 'flex', justifyContent: 'center', marginTop: '100px'}}>
+            <div style={{display: 'flex', justifyContent: 'center', marginTop: '150px'}}>
                 <div className={s.imageAndText}>
                     <CustomImage style={{width: '55px', height: '55px'}} src={failed}/>
                     <CustomTitle order={3}>Payment Failed</CustomTitle>
